@@ -53,9 +53,6 @@ This class allow your instance a Gateway app, hepe you register sensors to DevIo
 * sensor name: the display name in DevIot of the sensor
 * action callback function: when DevIot trigger this action sensor, this function will be call
 
-        # the parameters are: sensor kind, sensor id, sensor display name
-        app.register("light", "grovelight", "GroveLight")
-        
         # turn on/off the led when receive action from DevIot
         # action name will be 'on' or 'off'
         def trigger_grove_led(action):
@@ -65,6 +62,9 @@ This class allow your instance a Gateway app, hepe you register sensors to DevIo
             else:
                 grovepi.digitalWrite(led, 0)
                 
+        # the parameters are: sensor kind, sensor id, sensor display name, action call back function
+        app.register_action("led", "groveled", "GroveLed", trigger_grove_led)
+                   
 ####Start the Gateway
 
         # run service
