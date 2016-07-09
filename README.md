@@ -1,5 +1,5 @@
 #DevIoT Gateway Python SDK
-This is DevIoT gateway service SDK and sample codes. You can use this SDK to register sensors to DevIoT, and sync up data and actions between the sensors and DevIoT. 
+This is [DevIoT](https://developer.cisco.com/site/devnetlabs/deviot/) gateway service SDK and sample codes. You can use this SDK to register sensors to DevIoT, and sync up data and actions between the sensors and DevIoT. 
 
 ## Table of contents
 
