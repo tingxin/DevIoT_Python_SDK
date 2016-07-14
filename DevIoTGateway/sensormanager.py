@@ -33,11 +33,16 @@ class SensorManager(Singleton):
         self.__actions__[sensor_id] = action_function
 
     def add_custom_sensor(self, sensor):
+        self.add_custom_sensor_with_action(sensor, None)
+
+    def add_custom_sensor_with_action(self, sensor, action):
         if sensor.id in self.__sensors__:
             raise ValueError("{0} have been added".format(sensor.id))
             return
         if isinstance(sensor, Sensor):
             self.__sensors__[sensor.id] = sensor
+            if action is not None:
+                self.__actions__[sensor.id] = action
         else:
             raise ValueError("argument should be the instance of Sensor")
 
@@ -59,7 +64,7 @@ class SensorManager(Singleton):
 
     def __trigger_action__(self, sensor_id, action):
         if sensor_id in self.__actions__:
-            self.__actions__[sensor_id](action)
+            self.__actions__[sensor_id](sensor_id, action)
 
     def get_sensors_data(self):
         data = {}
@@ -86,6 +91,12 @@ class SensorManager(Singleton):
         for property_item in sensor.__properties__:
             expression[property_item.name] = property_item.value
         return expression
+
+    def get_sensor(self, sensor_id):
+        return self.__sensors__[sensor_id]
+
+    def has_sensor(self, sensor_id):
+        return sensor_id in self.__sensors__
 
     @staticmethod
     def __get_sensor_expression(sensor):

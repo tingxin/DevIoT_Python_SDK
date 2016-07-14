@@ -18,7 +18,7 @@ grovepi.pinMode(led, "OUTPUT")
 
 # turn on/off the led when receive action from DevIot
 # action name will be 'on' or 'off'
-def trigger_grove_led(action):
+def trigger_grove_led(sensor_id, action):
     print('led get action:' + action.name)
     if action.name == 'on':
         grovepi.digitalWrite(led, 1)

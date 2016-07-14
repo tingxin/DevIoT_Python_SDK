@@ -65,9 +65,6 @@ class MQClient(threading.Thread):
                     self.__sender.publish(self.__data_topic, data)
             time.sleep(0.2)
 
-
-
-
     def print_status(self):
         print("##########################################################")
         print("#                                                        #")

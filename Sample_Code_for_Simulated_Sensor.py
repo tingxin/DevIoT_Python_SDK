@@ -5,17 +5,17 @@ from DevIoTGateway.gateway import Gateway
 
 
 # action name will be 'on' or 'off'
-def trigger_pollution_shanghai(action):
+def trigger_pollution_shanghai(sensor_id, action):
     print("shanghai " + action.name)
 
 
 # action name will be 'on' or 'off'
-def trigger_pollution_suzhou(action):
+def trigger_pollution_suzhou(sensor_id, action):
     print("suzhou " + action.name)
 
 
 # action name will be 'on' or 'off'
-def trigger_pollution_beijing(action):
+def trigger_pollution_beijing(sensor_id, action):
     print("beijing " + action.name)
 
 if __name__ == '__main__':

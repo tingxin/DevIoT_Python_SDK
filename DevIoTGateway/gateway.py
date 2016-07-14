@@ -5,8 +5,6 @@ from register import Register
 from singleton import Singleton
 from sensormanager import manager
 
-__main_manager__ = []
-
 
 class Gateway(Singleton):
 
@@ -25,7 +23,7 @@ class Gateway(Singleton):
             server_host = mqtt_info[0]
             port = int(mqtt_info[1])
         except:
-            print("the format of mqtt host should be: ip:port")
+            print("the format of MQTT host should be: ip:port")
             return
 
         register = Register(self.app_name, manager, self.iot_address, server_host,
@@ -42,8 +40,23 @@ class Gateway(Singleton):
     def register_action(self, sensor_kind, sensor_id, sensor_name, action_function):
         manager.add_action_sensor(sensor_kind, sensor_id, sensor_name, action_function)
 
+    def register_custom_sensor(self, sensor):
+        manager.add_custom_sensor(sensor)
+
+    def register_custom_sensor_with_action(self, sensor, action):
+        manager.add_custom_sensor_with_action(sensor, action)
+
     def set_value(self, sensor_id, new_value):
         manager.update_sensor(sensor_id, new_value)
 
     def set_custom_sensor(self, sensor_id, properties):
         manager.update_custom_sensor(sensor_id, properties)
+
+    def get_sensor(self, sensor_id):
+        return manager.get_sensor(sensor_id)
+
+    def get_sensors(self):
+        return manager.__sensors__
+
+    def has_sensor(self, sensor_id):
+        return manager.has_sensor(sensor_id)
