@@ -2,8 +2,6 @@ __author__ = 'tingxxu'
 
 import paho.mqtt.client as mqtt
 import sys
-from sensor import *
-import json
 import time
 import threading
 
@@ -33,27 +31,17 @@ class MQClient(threading.Thread):
     def __on_message(self, client, userdata, msg):
 
         message = str(msg.payload)
-        data = json.loads(message)
         #print(msg.topic+" "+str(msg.payload))
+
         try:
-            sensor_id = data["name"]
 
-            action = SAction(data['action'])
-            for key in data:
-                if key != "name" and key != "action":
-                    setting = SSetting(key, 0, [0, 100], data[key], True)
-                    action.add_setting(setting)
-            try:
-
-                if self.sensor_manager is not None:
-                    self.sensor_manager.__trigger_action__(sensor_id, action)
-                res = "{\"result\":\"%s\"}" % "ok"
-                #print(res)
-            except:
-                res = "{\"result\":\"%s\"}" % sys.exc_info()[1]
-                print(res)
+            if self.sensor_manager is not None:
+                self.sensor_manager.__on_message__(message)
+            res = "{\"result\":\"%s\"}" % "ok"
+            #print(res)
         except:
-             print("the data from server ")
+            res = "{\"result\":\"%s\"}" % sys.exc_info()[1]
+            print(res)
 
     def run(self):
         self.__sender.connect(self.__server_host, self.__server_port, 60)

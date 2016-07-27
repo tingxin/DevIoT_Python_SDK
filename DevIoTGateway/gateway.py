@@ -37,7 +37,7 @@ class Gateway(Singleton):
     def register(self, sensor_kind, sensor_id, sensor_name):
         manager.add_read_sensor(sensor_kind, sensor_id, sensor_name)
 
-    def register_action(self, sensor_kind, sensor_id, sensor_name, action_function):
+    def register_action(self, sensor_kind, sensor_id, sensor_name, action_function=None):
         manager.add_action_sensor(sensor_kind, sensor_id, sensor_name, action_function)
 
     def register_custom_sensor(self, sensor):
@@ -45,6 +45,9 @@ class Gateway(Singleton):
 
     def register_custom_sensor_with_action(self, sensor, action):
         manager.add_custom_sensor_with_action(sensor, action)
+
+    def register_callback_for_kind(self, kind, callback):
+        manager.register_callback_for_kind(kind, callback)
 
     def set_value(self, sensor_id, new_value):
         manager.update_sensor(sensor_id, new_value)

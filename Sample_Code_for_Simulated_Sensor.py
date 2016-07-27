@@ -2,23 +2,21 @@ __author__ = 'tingxxu'
 import time
 import random
 from DevIoTGateway.gateway import Gateway
-
+from DevIoTGateway.sensor import Sensor,SSetting,SProperty,SAction
+from DevIoTGateway.config import config
 
 # action name will be 'on' or 'off'
-def trigger_pollution_shanghai(sensor_id, action):
+def trigger_alert_shanghai(sensor_id, action):
     print("shanghai " + action.name)
 
 
 # action name will be 'on' or 'off'
-def trigger_pollution_suzhou(sensor_id, action):
-    print("suzhou " + action.name)
-
-
-# action name will be 'on' or 'off'
-def trigger_pollution_beijing(sensor_id, action):
-    print("beijing " + action.name)
+def pollution_callback(sensor_id, action):
+    print("action %s occur at %s " % (action.name, sensor_id))
 
 if __name__ == '__main__':
+    app_name = config.get_string("appname", "test")
+    print(app_name)
     # create a gateway service instance
     # the parameters are: app name, deviot address, mq server address, deviot account
     app = Gateway("tingxin_test", "10.140.92.25:9000", "10.140.92.25:1883", "tingxxu@cisco.com")
@@ -30,9 +28,34 @@ if __name__ == '__main__':
 
     # register output sensors
     # the parameters are: sensor kind, sensor id, sensor display name, action call back function
-    app.register_action("Alert", "PollutionShanghai", "PollutionInShanghai", trigger_pollution_shanghai)
-    app.register_action("Alert", "PollutionSuzhou", "PollutionSuzhou", trigger_pollution_suzhou)
-    app.register_action("Alert", "PollutionBeijing", "PollutionBeijing", trigger_pollution_beijing)
+    app.register_action("Alert", "AlertToShanghai", "AlertToShanghai", trigger_alert_shanghai)
+
+    # register some output sensors
+    # don't set the  action call back function for those sensors
+    app.register_action("Pollution", "PollutionSuzhou", "PollutionSuzhou")
+    app.register_action("Pollution", "PollutionBeijing", "PollutionBeijing")
+
+    # set callback for all sensors which kind is 'Pollution'
+    app.register_callback_for_kind("Pollution", pollution_callback)
+
+    # register a complex sensor
+    weather = Sensor("weather", "weatherinsh", "WeatherInShangHai")
+
+    temperature = SProperty("temperature", 0, [-10, 50], 20)
+    humid = SProperty("humid", 0, [0, 100], 35)
+
+    start = SAction("start")
+    end = SAction("end")
+    suspend = SAction("suspend")
+
+    weather.add_property(temperature)
+    weather.add_property(humid)
+
+    weather.add_action(start)
+    weather.add_action(end)
+    weather.add_action(suspend)
+
+    app.register_custom_sensor(weather)
 
     # run service
     app.run()
