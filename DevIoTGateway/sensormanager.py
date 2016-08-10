@@ -115,15 +115,19 @@ class SensorManager(Singleton):
                         target_sensor.update_settings(command_dictionary)
                 else:
                     # create a new sensor
-                    if "kind" not in command_dictionary:
-                        raise ValueError("Add new sensor should have kind segment")
-                    kind = command_dictionary["kind"]
+                    if "kind" in command_dictionary:
+                        kind = command_dictionary["kind"]
+                    else:
+                        kind = None
+
                     founded = False
                     for key in self.__sensors__:
                         sensor = self.__sensors__[key]
-                        if sensor.kind == kind:
+                        if (kind is not None and sensor.kind == kind) or sensor.kind in sensor_id:
                             founded = True
                             new_sensor = sensor.copy_with_key(sensor_id)
+
+                            new_sensor.update_settings(command_dictionary)
                             self.add_custom_sensor(new_sensor)
                             break
                     if founded is False:

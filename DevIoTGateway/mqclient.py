@@ -19,12 +19,14 @@ class MQClient(threading.Thread):
 
         self.__data_topic = data_topic
         self.__action_topic = action_topic
+        self.__modify_topic = "/api/modify"
         self.__server_host = server_host
         self.__server_port = server_port
         self.sensor_manager = sensor_manager
 
     def __on_connect(self, client, userdata, flags, rc):
         self.__sender.subscribe(self.__action_topic)
+        self.__sender.subscribe(self.__modify_topic)
         self.print_status()
 
     # The callback for when a PUBLISH message is received from the server.
@@ -34,11 +36,10 @@ class MQClient(threading.Thread):
         #print(msg.topic+" "+str(msg.payload))
 
         try:
-
             if self.sensor_manager is not None:
                 self.sensor_manager.__on_message__(message)
-            res = "{\"result\":\"%s\"}" % "ok"
-            #print(res)
+                res = "{\"result\":\"%s\"}" % "ok"
+                #print(res)
         except:
             res = "{\"result\":\"%s\"}" % sys.exc_info()[1]
             print(res)

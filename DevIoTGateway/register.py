@@ -23,6 +23,7 @@ class Register(threading.Thread):
 
         self.MQData_topic = ("%s-%s-data" % (self.__app_name__, self.__owner)).encode('utf8')
         self.MQAction_topic = ("%s-%s-action" % (self.__app_name__, self.__owner)).encode('utf8')
+        self.MQModify_topic = '/api/modify'
 
         self._register_model = {}
         self._register_model['name'] = self.__app_name__
@@ -34,7 +35,7 @@ class Register(threading.Thread):
 
         self._register_model['data'] = self.MQData_topic
         self._register_model['action'] = self.MQAction_topic
-        self._register_model['setting'] = '/api/modify'
+        self._register_model['setting'] = self.MQModify_topic
 
     def run(self):
         api = "/api/v1/gateways"
