@@ -32,6 +32,7 @@ class Register(threading.Thread):
         self._register_model['host'] = self.__ip__
         self._register_model['port'] = self.__port__
         self._register_model['owner'] = self.__owner
+        self._register_model['kind'] = self.__app_name__
 
         self._register_model['data'] = self.MQData_topic
         self._register_model['action'] = self.MQAction_topic
