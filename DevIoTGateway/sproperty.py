@@ -12,4 +12,5 @@ class SProperty:
         self.type = s_type
         self.range = s_range
         self.value = s_value
+        self.unit = ""
         self.description = "the %s property" % self.name

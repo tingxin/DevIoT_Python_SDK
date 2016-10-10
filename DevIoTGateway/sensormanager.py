@@ -173,6 +173,7 @@ class SensorManager(Singleton):
                 "type": property_item.type,
                 "range": property_item.range,
                 "value": property_item.value,
+                "unit": property_item.unit,
                 "description": property_item.description
             })
 
@@ -186,6 +187,7 @@ class SensorManager(Singleton):
                     "type": parameter_item.type,
                     "range": parameter_item.range,
                     "value": parameter_item.value,
+                    "unit": parameter_item.unit,
                     "description": parameter_item.description,
                     "required": parameter_item.required
                 }
@@ -199,6 +201,7 @@ class SensorManager(Singleton):
                 "type": setting_item.type,
                 "range": setting_item.range,
                 "value": setting_item.value,
+                "unit": setting_item.unit,
                 "description": setting_item.description,
                 "required": setting_item.required
             })

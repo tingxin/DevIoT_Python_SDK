@@ -19,7 +19,7 @@ if __name__ == '__main__':
     print(app_name)
     # create a gateway service instance
     # the parameters are: app name, deviot address, mq server address, deviot account
-    app = Gateway("tingxin_test", "10.140.92.25:9000", "10.140.92.25:1883", "tingxxu@cisco.com")
+    app = Gateway("tingxin_test", "10.140.92.22:9000", "10.140.92.22:1883", "tingxxu@cisco.com")
 
     # register input sensors
     # the parameters are: sensor kind, sensor id, sensor display name
@@ -42,7 +42,10 @@ if __name__ == '__main__':
     weather = Sensor("weather", "weatherinsh", "WeatherInShangHai")
 
     temperature = SProperty("temperature", 0, [-10, 50], 20)
+    temperature.unit = "Celsius"
+
     humid = SProperty("humid", 0, [0, 100], 35)
+    humid.unit = "D"
 
     start = SAction("start")
     end = SAction("end")

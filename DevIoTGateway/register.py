@@ -41,7 +41,6 @@ class Register(threading.Thread):
     def run(self):
         api = "/api/v1/gateways"
 
-
         self._register_model['sensors'] = self.__manager__.get_all_expression()
 
         json_data = json.dumps(self._register_model)
