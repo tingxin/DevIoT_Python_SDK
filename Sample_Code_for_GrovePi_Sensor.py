@@ -28,7 +28,7 @@ def trigger_grove_led(sensor_id, action):
 
 # create a gateway service instance
 # the parameters are: app name, deviot address, mq server address, deviot account
-app = Gateway("grovepi_test", "10.140.92.25:9000", "10.140.92.25:1883", "tingxxu@cisco.com")
+app = Gateway("grovepi_test", "www.ciscodeviot.com", "mqtt.ciscodeviot.com:1883", "")
 
 # register input sensors
 # the parameters are: sensor kind, sensor id, sensor display name

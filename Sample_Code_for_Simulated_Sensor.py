@@ -19,7 +19,7 @@ if __name__ == '__main__':
     print(app_name)
     # create a gateway service instance
     # the parameters are: app name, deviot address, mq server address, deviot account
-    app = Gateway("tingxin_test", "10.140.92.22:9000", "10.140.92.22:1883", "tingxxu@cisco.com")
+    app = Gateway("tingxin_test", "www.ciscodeviot.com", "mqtt.ciscodeviot.com:1883", "")
 
     # register input sensors
     # the parameters are: sensor kind, sensor id, sensor display name
